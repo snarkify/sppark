@@ -22,7 +22,7 @@ template<class field_t, class field_h = typename field_t::mem_t>
 class xyzz_t {
 
 public:
-    field_t X, Y, ZZZ, ZZ;
+    field_t X, Y, ZZ, ZZZ;
     static const unsigned int degree = field_t::degree;
 
     __host__ __device__ xyzz_t() {}
