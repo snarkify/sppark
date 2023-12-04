@@ -2,6 +2,10 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
+/* 
+* Modified by Snarkify Inc
+*/
+
 #ifndef __SPPARK_EC_XYZZ_T_HPP__
 #define __SPPARK_EC_XYZZ_T_HPP__
 
@@ -16,16 +20,21 @@
 
 template<class field_t, class field_h = typename field_t::mem_t>
 class xyzz_t {
-    field_t X, Y, ZZZ, ZZ;
 
 public:
+    field_t X, Y, ZZZ, ZZ;
     static const unsigned int degree = field_t::degree;
+
+    __host__ __device__ xyzz_t() {}
+    __host__ __device__ xyzz_t(const field_t& x, const field_t& y, 
+                               const field_t& zz, const field_t& zzz) 
+                               : X(x), Y(y), ZZ(zz), ZZZ(zzz) {}
 
 #ifdef __NVCC__
     class mem_t { friend class xyzz_t;
-        field_h X, Y, ZZZ, ZZ;
 
     public:
+        field_h X, Y, ZZZ, ZZ;
         inline __device__ operator xyzz_t() const
         {
             xyzz_t p;
@@ -58,9 +67,9 @@ public:
 #endif
 
     class affine_t { friend class xyzz_t;
-        field_t X, Y;
 
     public:
+        field_t X, Y;
         affine_t(const field_t& x, const field_t& y) : X(x), Y(y) {}
         inline __host__ __device__ affine_t() {}
 
@@ -72,7 +81,7 @@ public:
         {   return (bool)(X.is_zero() & Y.is_zero());   }
 #endif
 
-        inline __host__ affine_t& operator=(const xyzz_t& a)
+        inline __host__ __device__ affine_t& operator=(const xyzz_t& a)
         {
             Y = 1/a.ZZZ;
             X = Y * a.ZZ;   // 1/Z
