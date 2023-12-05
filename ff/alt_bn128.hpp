@@ -68,7 +68,7 @@ struct fr_t : public fr_mont {
 #endif
 
 #ifndef __CUDA_ARCH__   // host-side field types
-# include <blst_t.hpp>
+# include <blst/src/blst_t.hpp>
 
 # if defined(__GNUC__) && !defined(__clang__)
 #  pragma GCC diagnostic push
