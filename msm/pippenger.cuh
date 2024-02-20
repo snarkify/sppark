@@ -711,8 +711,8 @@ RustError mult_pippenger(point_t *out, const affine_t points[], size_t npoints,
                                        size_t ffi_affine_sz = sizeof(affine_t))
 {
     int default_device_id = -1;
-    return mult_pippenger(out, default_device_id, points, npoints, scalars, mont, 
-                            ffi_affine_sz);
+    return mult_pippenger<bucket_t, point_t, affine_t, scalar_t>(
+      out, default_device_id, points, npoints, scalars, mont, ffi_affine_sz);
 }
 
 template<class bucket_t, class point_t, class affine_t, class scalar_t> static
