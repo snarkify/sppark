@@ -710,8 +710,20 @@ RustError mult_pippenger(point_t *out, const affine_t points[], size_t npoints,
                                        const scalar_t scalars[], bool mont = true,
                                        size_t ffi_affine_sz = sizeof(affine_t))
 {
+    int default_device_id = -1;
+    return mult_pippenger(out, default_device_id, points, npoints, scalars, mont, 
+                            ffi_affine_sz);
+}
+
+template<class bucket_t, class point_t, class affine_t, class scalar_t> static
+RustError mult_pippenger(point_t *out, int device_id, const affine_t points[], 
+                                       size_t npoints, const scalar_t scalars[], 
+                                       bool mont = true,
+                                       size_t ffi_affine_sz = sizeof(affine_t))
+{
     try {
-        msm_t<bucket_t, point_t, affine_t, scalar_t> msm{nullptr, npoints};
+        msm_t<bucket_t, point_t, affine_t, scalar_t> msm{nullptr, npoints, 
+                                                           ffi_affine_sz, device_id};
         return msm.invoke(*out, slice_t<affine_t>{points, npoints},
                                 scalars, mont, ffi_affine_sz);
     } catch (const cuda_error& e) {
