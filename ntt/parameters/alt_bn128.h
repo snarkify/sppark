@@ -14,9 +14,12 @@
   }
 #endif
 
+// `group_gen = 7 mod r` is a generator of the `r - 1` order multiplicative
+// subgroup, or in other words a primitive root of the field.
 const fr_t group_gen = FR_T(vec256, 0x3057819e4fffffdbu, 0x307f6d866832bb01u,
                             0x5c65ec9f484e3a89u, 0x0180a96573d3d9f8u);
 
+// modular inverse of group_generator in r
 const fr_t group_gen_inverse =
     FR_T(vec256, 0xf41575289db6db6du, 0x07daec5e847b8b05u, 0xea0fce347eecc0e2u,
          0x02017ed283b7fb4fu);
