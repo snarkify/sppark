@@ -3,15 +3,9 @@
 // SPDX-License-Identifier: Apache-2.0
 
 #if defined(__GNUC__) || defined(__clang__)
-#define FR_T(vec_t, ...)                                                       \
-  fr_t {                                                                       \
-    (vec_t) { __VA_ARGS__ }                                                    \
-  }
+# define FR_T(vec_t, ...) fr_t{(vec_t){__VA_ARGS__}}
 #else
-#define FR_T(vec_t, ...)                                                       \
-  fr_t {                                                                       \
-    vec_t { __VA_ARGS__ }                                                      \
-  }
+# define FR_T(vec_t, ...) fr_t{vec_t{__VA_ARGS__}}
 #endif
 
 // `group_gen = 7 mod r` is a generator of the `r - 1` order multiplicative
