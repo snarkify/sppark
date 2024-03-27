@@ -15,6 +15,12 @@ const fr_t group_gen = FR_T(vec256, 0x3057819e4fffffdbu, 0x307f6d866832bb01u, 0x
 // modular inverse of group_generator in r
 const fr_t group_gen_inverse = FR_T(vec256, 0xf41575289db6db6du, 0x07daec5e847b8b05u, 0xea0fce347eecc0e2u, 0x02017ed283b7fb4fu);
 
+// `zeta^3 = 1 mod r` where `zeta^2 != 1 mod r`
+const fr_t zeta = FR_T(vec256, 0x0363f29955fcd653u, 0x73e7950b5fc1e200u, 0xc5fce83e576d9d24u, 0x059c805da1c3a4d4u);
+
+// zeta^2
+const fr_t zeta_inverse = FR_T(vec256, 0x93e7cede4a0329b3u, 0x7d4fdca77a96c167u, 0x8be4ba08b19a750au, 0x1cbd5653a5661c25u);
+
 const int S = 28;
 
 const fr_t forward_roots_of_unity[S + 1] = {
