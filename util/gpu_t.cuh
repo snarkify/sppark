@@ -59,7 +59,7 @@ class stream_t {
 public:
     stream_t(int id) : gpu_id(id)
     {   cudaStreamCreateWithFlags(&stream, cudaStreamNonBlocking);   }
-    stream_t(int id, cudaStream_t _stream) : gpu_id(id), stream(_stream) {};
+    stream_t(int id, cudaStream_t _stream) : stream(_stream), gpu_id(id) {};
     ~stream_t()
     {   cudaStreamDestroy(stream);   }
     inline operator decltype(stream)() const    { return stream; }
