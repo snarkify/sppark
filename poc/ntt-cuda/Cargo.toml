@@ -43,3 +43,7 @@ ark-bls12-377 = { version = "0.3.0" }
 ark-pallas = { version = "0.3.0" }
 ark-vesta = { version = "0.3.0" }
 ark-bn254 = { version = "0.3.0" }
+
+[[bench]]
+name = "ntt_bench"
+harness = false
