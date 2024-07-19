@@ -2,9 +2,9 @@
 // Licensed under the Apache License, Version 2.0, see LICENSE for details.
 // SPDX-License-Identifier: Apache-2.0
 
-// Values in Montgomery form
-
 #pragma once
+
+// Values in Montgomery form
 
 const fr_t group_gen = fr_t(0x2ffffffau);
 const fr_t group_gen_inverse = fr_t(0x2d555555u);
