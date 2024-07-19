@@ -4,6 +4,8 @@
 
 // Values in Montgomery form
 
+#pragma once
+
 const fr_t group_gen = fr_t(0x2ffffffau);
 const fr_t group_gen_inverse = fr_t(0x2d555555u);
 
