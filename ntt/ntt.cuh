@@ -16,7 +16,11 @@
 #include "kernels.cu"
 
 #ifndef __CUDA_ARCH__
-
+float measure_time(cudaEvent_t start, cudaEvent_t stop) {
+  float milliseconds = 0;
+  cudaEventElapsedTime(&milliseconds, start, stop);
+  return milliseconds;
+}
 class NTT {
 public:
     enum class InputOutputOrder { NN, NR, RN, RR };
@@ -151,8 +155,27 @@ public:
             dev_ptr_t<fr_t> d_inout{domain_size, gpu};
             gpu.HtoD(&d_inout[0], inout, domain_size);
 
+          const int iterations = 10;
+          float total_time_ntt = 0.0f;
+          cudaEvent_t start, stop;
+          cudaEventCreate(&start);
+          cudaEventCreate(&stop);
+          for (int i = 0; i < iterations; ++i) {
+            cudaEventRecord(start, 0);
             NTT_internal(&d_inout[0], lg_domain_size, order, direction, type, gpu,
                          coset_ext_pow);
+            gpu.sync();
+            cudaEventRecord(stop, 0);
+            cudaEventSynchronize(stop);
+
+            total_time_ntt += measure_time(start, stop);
+          }
+
+          float avg_time_ntt = total_time_ntt / iterations;
+          std::cout << "Average time for NTT::Base: " << avg_time_ntt << " ms" << std::endl;
+
+          cudaEventDestroy(start);
+          cudaEventDestroy(stop);
 
             gpu.DtoH(inout, &d_inout[0], domain_size);
             gpu.sync();
