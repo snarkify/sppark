@@ -11,6 +11,7 @@ const fr_t group_gen_inverse = fr_t(0x2d555555u);
 
 const int S = 27;
 
+// values were modified to match Plonky3
 const fr_t forward_roots_of_unity[S + 1] = {
     fr_t(0x0ffffffeu),
     fr_t(0x68000003u),
@@ -42,6 +43,7 @@ const fr_t forward_roots_of_unity[S + 1] = {
     fr_t(0x57fab6eeu)
 };
 
+// values were modified to match Plonky3
 const fr_t inverse_roots_of_unity[S + 1] = {
     fr_t(0x0ffffffeu),
     fr_t(0x68000003u),
